@@ -37,19 +37,30 @@ const sections = [
 export default function AboutPage() {
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-5 py-10 sm:px-6 lg:px-8 lg:py-14">
-      <section className="rounded-[36px] border border-white/70 bg-[rgba(255,255,255,0.86)] p-8 shadow-[0_24px_72px_rgba(13,32,51,0.08)] sm:p-10">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-accent)]">
-          About / Methodology
-        </p>
-        <h1 className="mt-4 text-4xl font-semibold tracking-tight text-[var(--color-foreground)] sm:text-5xl">
-          拒绝信息过载，重塑团队的 AI 工具探索体验
-        </h1>
-        <p className="mt-6 max-w-4xl text-base leading-8 text-[var(--color-muted)]">
-          Clawhub Skills Guide 的目标很直接：把值得优先尝试的 skill 按用户场景整理出来，先让人快速看懂，再决定要不要深入。第一版重点是方法清楚、结构稳定、便于后续继续补齐。
-        </p>
+      <section className="hero-mesh-bg rounded-[36px] border border-white/70 bg-[rgba(255,255,255,0.86)] p-8 shadow-[0_24px_72px_rgba(13,32,51,0.08)] sm:p-10">
+        <div
+          className="animate-fade-in"
+          style={{ animationDelay: "0ms" }}
+        >
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-accent)]">
+            About / Methodology
+          </p>
+          <h1 className="mt-4 text-4xl font-semibold tracking-tight text-[var(--color-foreground)] sm:text-5xl">
+            拒绝信息过载，重塑团队的 AI 工具探索体验
+          </h1>
+          <p className="mt-6 max-w-4xl text-base leading-8 text-[var(--color-muted)]">
+            我们专注提炼高频工作流中的优质 AI 工具。通过按实际应用场景对海量工具进行严选与结构化整理，帮你降低试错成本，即刻提升生产力。
+          </p>
+        </div>
 
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link href="/" className="hero-primary-button">
+        <div
+          className="mt-8 flex flex-wrap gap-3 animate-fade-in"
+          style={{ animationDelay: "150ms" }}
+        >
+          <Link
+            href="/"
+            className="inline-flex rounded-full bg-[var(--color-accent)] px-5 py-3 text-sm font-medium text-white transition-all duration-300 hover:bg-[#00a85f] hover:shadow-lg"
+          >
             返回首页
           </Link>
           <Link
@@ -62,10 +73,22 @@ export default function AboutPage() {
       </section>
 
       <section className="grid gap-5 md:grid-cols-2">
-        {sections.map((section) => (
+        {sections.map((section, index) => (
           <article
             key={section.title}
-            className="rounded-[30px] border border-white/70 bg-white/80 p-7 shadow-[0_14px_40px_rgba(13,32,51,0.05)]"
+            className="animate-fade-in rounded-[30px] border border-white/70 bg-white/80 p-7 shadow-[0_14px_40px_rgba(13,32,51,0.05)]"
+            style={{
+              animationDelay:
+                index === 0
+                  ? "300ms"
+                  : index === 1
+                    ? "400ms"
+                    : index === 2
+                      ? "500ms"
+                      : index === 3
+                        ? "600ms"
+                        : "700ms",
+            }}
           >
             <h2 className="text-2xl font-semibold tracking-tight text-[var(--color-foreground)]">
               {section.title}

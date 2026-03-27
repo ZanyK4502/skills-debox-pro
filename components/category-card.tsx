@@ -11,28 +11,31 @@ export function CategoryCard({ category, index }: CategoryCardProps) {
   const isReady = category.status === "ready";
 
   const cardClassName = isReady
-    ? "group block rounded-2xl border border-[var(--color-accent)]/20 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-accent)]/40 hover:shadow-xl"
-    : "rounded-2xl border border-dashed border-slate-200 bg-transparent p-6 opacity-60 grayscale transition hover:opacity-80";
+    ? "group block rounded-3xl border border-black/5 bg-white p-6 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-[var(--color-accent)]/30 hover:shadow-[0_20px_40px_-15px_rgba(0,194,110,0.15)]"
+    : "rounded-3xl border border-dashed border-black/5 bg-white p-6 opacity-65 grayscale transition-all duration-500 hover:-translate-y-2 hover:opacity-85 hover:border-[var(--color-accent)]/30 hover:shadow-[0_20px_40px_-15px_rgba(0,194,110,0.15)]";
 
   const inner = (
     <>
       <div className="flex items-start justify-between gap-4">
-        <span className="text-sm font-semibold text-[var(--color-muted)]">
-          {String(index).padStart(2, "0")}
-        </span>
+        <div className="flex items-center gap-3">
+          <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-accent)]" />
+          <span className="text-sm font-semibold text-neutral-950">
+            {String(index).padStart(2, "0")}
+          </span>
+        </div>
         <span
-          className={`rounded-full px-3 py-1 text-xs font-semibold ${
+          className={`rounded-full bg-[var(--color-accent)]/10 px-3 py-1 text-xs font-medium ${
             isReady
-              ? "bg-[rgba(15,111,127,0.12)] text-[var(--color-accent)]"
-              : "bg-[rgba(148,163,184,0.14)] text-[var(--color-muted)]"
+              ? "text-[var(--color-accent)]"
+              : "text-[var(--color-accent)]"
           }`}
         >
           {isReady ? "已完成" : "规划中"}
         </span>
       </div>
 
-      <div className="mt-10 space-y-3">
-        <h3 className="text-xl font-semibold tracking-tight text-[var(--color-foreground)]">
+      <div className="mt-8 space-y-3">
+        <h3 className="text-xl font-bold tracking-tight text-neutral-950">
           {category.name}
         </h3>
         <p className="text-sm leading-7 text-[var(--color-muted)]">
@@ -40,7 +43,7 @@ export function CategoryCard({ category, index }: CategoryCardProps) {
         </p>
       </div>
 
-      <div className="mt-8 flex items-center justify-between text-sm">
+      <div className="mt-8 flex items-center justify-between border-t border-black/5 pt-5 text-sm">
         <span className="font-medium text-[var(--color-accent)]">
           {isReady ? "进入分类页" : "整理中"}
         </span>

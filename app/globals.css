@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f5f7fb;
+  --background: #f8faf8;
   --foreground: #102033;
   --muted: #5b6979;
-  --accent: #0f6f7f;
+  --accent: #00c26e;
   --surface: #ffffff;
 }
 
@@ -14,8 +14,8 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-surface: var(--surface);
-  --font-sans: var(--font-noto-sans-sc);
-  --font-mono: var(--font-jetbrains-mono);
+  --font-sans: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 }
 
 * {
@@ -29,10 +29,41 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  background-image:
-    radial-gradient(circle at top left, rgba(15, 111, 127, 0.12), transparent 30%),
-    radial-gradient(circle at top right, rgba(105, 151, 200, 0.12), transparent 24%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(245, 247, 251, 0.92));
+}
+
+@keyframes mesh-movement {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-mesh-bg {
+  background:
+    radial-gradient(circle at top left, rgba(0, 194, 110, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at bottom right, rgba(0, 194, 110, 0.08) 0%, transparent 40%);
+  background-size: 200% 200%;
+  animation: mesh-movement 15s ease-in-out infinite;
 }
 
 a {
@@ -59,6 +90,6 @@ a {
 }
 
 ::selection {
-  background: rgba(15, 111, 127, 0.18);
+  background: rgba(0, 194, 110, 0.18);
   color: var(--foreground);
 }
