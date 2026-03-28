@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 
+import { useLanguage } from "@/components/language-provider";
 import type { Category } from "@/data/categories";
 
 interface CategoryCardProps {
@@ -8,7 +11,12 @@ interface CategoryCardProps {
 }
 
 export function CategoryCard({ category, index }: CategoryCardProps) {
+  const { dictionary, getCategoryCopy } = useLanguage();
   const isReady = category.status === "ready";
+  const copy = getCategoryCopy(category.slug, {
+    name: category.name,
+    description: category.description,
+  });
 
   const cardClassName = isReady
     ? "group block rounded-3xl border border-black/5 bg-white p-6 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-[var(--color-accent)]/30 hover:shadow-[0_20px_40px_-15px_rgba(0,194,110,0.15)]"
@@ -23,32 +31,32 @@ export function CategoryCard({ category, index }: CategoryCardProps) {
             {String(index).padStart(2, "0")}
           </span>
         </div>
-        <span
-          className={`rounded-full bg-[var(--color-accent)]/10 px-3 py-1 text-xs font-medium ${
-            isReady
-              ? "text-[var(--color-accent)]"
-              : "text-[var(--color-accent)]"
-          }`}
-        >
-          {isReady ? "已完成" : "规划中"}
+        <span className="rounded-full bg-[var(--color-accent)]/10 px-3 py-1 text-xs font-medium text-[var(--color-accent)]">
+          {isReady
+            ? dictionary.categoryCard.readyStatus
+            : dictionary.categoryCard.soonStatus}
         </span>
       </div>
 
       <div className="mt-8 space-y-3">
         <h3 className="text-xl font-bold tracking-tight text-neutral-950">
-          {category.name}
+          {copy.name}
         </h3>
         <p className="text-sm leading-7 text-[var(--color-muted)]">
-          {category.description}
+          {copy.description}
         </p>
       </div>
 
       <div className="mt-8 flex items-center justify-between border-t border-black/5 pt-5 text-sm">
         <span className="font-medium text-[var(--color-accent)]">
-          {isReady ? "进入分类页" : "整理中"}
+          {isReady
+            ? dictionary.categoryCard.readyAction
+            : dictionary.categoryCard.soonAction}
         </span>
         <span className="text-[var(--color-muted)]">
-          {isReady ? "可查看精选结果" : "后续补充推荐"}
+          {isReady
+            ? dictionary.categoryCard.readyNote
+            : dictionary.categoryCard.soonNote}
         </span>
       </div>
     </>

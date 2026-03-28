@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { LanguageProvider } from "@/components/language-provider";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s | Clawhub Skills Guide",
   },
   description:
-    "面向普通用户的 Clawhub skills 精选导航，先上线 12 个主分类中的 3 个已完成分类。",
+    "A curated Clawhub Skills guide for everyday users, starting with the most practical categories.",
 };
 
 export default function RootLayout({
@@ -21,13 +22,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" className="h-full antialiased">
+    <html lang="en" className="h-full antialiased">
       <body className="min-h-full font-sans text-[var(--color-foreground)]">
-        <div className="relative flex min-h-screen flex-col">
-          <SiteHeader />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
-        </div>
+        <LanguageProvider>
+          <div className="relative flex min-h-screen flex-col">
+            <SiteHeader />
+            <main className="flex-1">{children}</main>
+            <SiteFooter />
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   );
