@@ -1,22 +1,27 @@
-export type SkillStatus = "featured" | "backup";
+export type SkillTier = "featured" | "backup";
+export type SkillLifecycleStatus = "active" | "archived";
 
 export interface Skill {
   name: string;
   categorySlug: string;
-  status: SkillStatus;
+  tier: SkillTier;
+  status?: SkillLifecycleStatus;
   tags: string[];
   summary: string;
   useCases: string;
   audience: string;
   reason: string;
   url: string;
+  publishedAt?: string;
+  contributor?: string;
 }
 
 export const skills: Skill[] = [
   {
     name: "Multi Search Engine",
     categorySlug: "research",
-    status: "featured",
+    tier: "featured",
+    status: "active",
     tags: ["聚合搜索", "多搜索引擎", "无 API Key", "资料检索", "研究辅助"],
     summary: "聚合多个搜索引擎，支持高级搜索操作，适合快速做多来源资料检索。",
     useCases: "查资料、找 PDF/网页、跨中英文搜索、做主题摸排。",
@@ -27,7 +32,8 @@ export const skills: Skill[] = [
   {
     name: "Academic Deep Research",
     categorySlug: "research",
-    status: "featured",
+    tier: "featured",
+    status: "active",
     tags: ["深度研究", "严谨方法论", "APA 引用", "文献综述", "竞品研究"],
     summary: "通过多轮研究和规范引用，完成更严谨的深度研究任务。",
     useCases: "深度专题研究、竞品分析、文献综述、研究报告。",
@@ -38,7 +44,8 @@ export const skills: Skill[] = [
   {
     name: "Summarize",
     categorySlug: "research",
-    status: "backup",
+    tier: "backup",
+    status: "active",
     tags: ["摘要生成", "URL 摘要", "PDF 摘要", "多模态阅读", "研究辅助"],
     summary: "对 URL、PDF、图片、音频和视频内容做快速摘要。",
     useCases: "看长文章、快速读 PDF、整理视频内容。",
@@ -49,7 +56,8 @@ export const skills: Skill[] = [
   {
     name: "Market Research",
     categorySlug: "research",
-    status: "backup",
+    tier: "backup",
+    status: "active",
     tags: ["商业研究", "市场分析", "竞品映射", "定价验证", "需求验证"],
     summary: "面向市场规模、竞品、价格与需求验证的研究型 skill。",
     useCases: "赛道研究、竞品分析、产品定位判断。",
@@ -60,7 +68,8 @@ export const skills: Skill[] = [
   {
     name: "Realtime Web Search",
     categorySlug: "research",
-    status: "backup",
+    tier: "backup",
+    status: "archived",
     tags: ["实时搜索", "查新", "轻量检索", "最新信息", "低门槛"],
     summary: "适合查最近发生的事，快速补充实时资料。",
     useCases: "查最新消息、验证时效性信息。",
@@ -71,7 +80,8 @@ export const skills: Skill[] = [
   {
     name: "Skill Vetter",
     categorySlug: "security-risk",
-    status: "featured",
+    tier: "featured",
+    status: "active",
     tags: ["skill 审计", "安装前检查", "权限范围", "红旗检测", "低门槛安全"],
     summary: "在安装 skill 前检查来源、权限范围、可疑模式和风险等级。",
     useCases: "安装陌生 skill 前做安全检查、审核第三方 skill。",
@@ -82,7 +92,8 @@ export const skills: Skill[] = [
   {
     name: "Openclaw Security Audit",
     categorySlug: "security-risk",
-    status: "featured",
+    tier: "featured",
+    status: "active",
     tags: ["OpenClaw 安全审计", "部署检查", "配置风险", "凭据泄露", "硬化建议"],
     summary: "审计 OpenClaw 部署中的配置错误、暴露面和泄露风险。",
     useCases: "自部署后做安全检查、做 hardening。",
@@ -93,7 +104,8 @@ export const skills: Skill[] = [
   {
     name: "Security Auditor",
     categorySlug: "security-risk",
-    status: "backup",
+    tier: "backup",
+    status: "active",
     tags: ["代码安全", "OWASP", "认证授权", "输入校验", "Web 安全"],
     summary: "审查代码和 Web 应用中的常见安全问题。",
     useCases: "代码 review、上线前安全检查。",
@@ -104,7 +116,8 @@ export const skills: Skill[] = [
   {
     name: "Security Audit Toolkit",
     categorySlug: "security-risk",
-    status: "backup",
+    tier: "backup",
+    status: "active",
     tags: ["依赖扫描", "密钥检测", "TLS 检查", "文件权限", "基础设施审计"],
     summary: "检查依赖漏洞、硬编码密钥、SSL/TLS 和权限问题。",
     useCases: "审代码仓库、查 secret、做基础设施安全体检。",
@@ -115,7 +128,8 @@ export const skills: Skill[] = [
   {
     name: "龙虾安全卫士",
     categorySlug: "security-risk",
-    status: "backup",
+    tier: "backup",
+    status: "archived",
     tags: ["中文安全审计", "技能静态扫描", "权限风险", "依赖风险", "GitHub 审核"],
     summary: "对 skills 做静态安全扫描并输出中文风险报告。",
     useCases: "审核本地 skills、扫描第三方 skill。",
@@ -126,7 +140,8 @@ export const skills: Skill[] = [
   {
     name: "Quick Intel Token Security Scanner",
     categorySlug: "security-risk",
-    status: "backup",
+    tier: "backup",
+    status: "active",
     tags: ["Web3 安全", "代币风险", "honeypot 检测", "合约扫描", "买币前检查"],
     summary: "检查代币是否有 honeypot、骗局或其他合约风险。",
     useCases: "买 token 前先扫一下、检查可疑项目。",
@@ -137,7 +152,8 @@ export const skills: Skill[] = [
   {
     name: "Market Environment Analysis",
     categorySlug: "market-intelligence",
-    status: "featured",
+    tier: "featured",
+    status: "active",
     tags: ["宏观市场", "全球市场", "风险偏好", "市场综述", "经济指标"],
     summary: "汇总全球股指、外汇、商品、美债收益率和 VIX，并输出市场环境分析。",
     useCases: "写市场综述、判断市场风险偏好、做宏观背景分析。",
@@ -148,7 +164,8 @@ export const skills: Skill[] = [
   {
     name: "Polymarket Odds",
     categorySlug: "market-intelligence",
-    status: "featured",
+    tier: "featured",
+    status: "active",
     tags: ["预测市场", "事件概率", "Polymarket", "市场预期", "实时赔率"],
     summary: "查询预测市场的赔率、价格和事件，快速看市场认为某件事发生的概率。",
     useCases: "看政治/体育/加密事件概率，做事件驱动型分析。",
@@ -159,7 +176,8 @@ export const skills: Skill[] = [
   {
     name: "Crypto Market",
     categorySlug: "market-intelligence",
-    status: "backup",
+    tier: "backup",
+    status: "active",
     tags: ["加密行情", "多交易所", "价格提醒", "CCXT", "实时监控"],
     summary: "获取多交易所加密价格、K 线和盘口，并支持价格提醒。",
     useCases: "看 BTC/ETH 实时价格、跨交易所比价。",
@@ -170,7 +188,8 @@ export const skills: Skill[] = [
   {
     name: "Trading Research",
     categorySlug: "market-intelligence",
-    status: "backup",
+    tier: "backup",
+    status: "active",
     tags: ["Binance", "技术分析", "DCA", "仓位管理", "市场扫描"],
     summary: "基于 Binance 公共数据做技术分析、定投规划和市场扫描。",
     useCases: "看币价与 K 线、做 DCA 计划、算仓位。",
@@ -181,7 +200,8 @@ export const skills: Skill[] = [
   {
     name: "Cryptocurrency Market Live Briefing",
     categorySlug: "market-intelligence",
-    status: "backup",
+    tier: "backup",
+    status: "active",
     tags: ["市场简报", "BTC/ETH/SOL", "情绪指标", "行业新闻", "快讯"],
     summary: "输出包含价格、情绪、技术指标、政策和行业新闻的加密市场简报。",
     useCases: "做晨报/晚报、快速看主流币和市场情绪。",
@@ -192,7 +212,8 @@ export const skills: Skill[] = [
   {
     name: "Polymarket API",
     categorySlug: "market-intelligence",
-    status: "backup",
+    tier: "backup",
+    status: "archived",
     tags: ["Polymarket", "只读查询", "预测市场", "事件概率", "轻量接口"],
     summary: "只读查询 Polymarket 的 markets 和 events。",
     useCases: "查询预测市场事件和赔率数据。",
@@ -206,14 +227,40 @@ export function getSkillsByCategory(categorySlug: string) {
   return skills.filter((skill) => skill.categorySlug === categorySlug);
 }
 
+function isActiveSkill(skill: Skill) {
+  return skill.status !== "archived";
+}
+
+export function getActiveSkillsByCategory(categorySlug: string) {
+  return skills.filter(
+    (skill) => skill.categorySlug === categorySlug && isActiveSkill(skill),
+  );
+}
+
+export function hasActiveSkillsInCategory(categorySlug: string) {
+  return getActiveSkillsByCategory(categorySlug).length > 0;
+}
+
 export function getFeaturedSkills(categorySlug: string) {
   return skills.filter(
-    (skill) => skill.categorySlug === categorySlug && skill.status === "featured",
+    (skill) =>
+      skill.categorySlug === categorySlug &&
+      skill.tier === "featured" &&
+      isActiveSkill(skill),
   );
 }
 
 export function getBackupSkills(categorySlug: string) {
   return skills.filter(
-    (skill) => skill.categorySlug === categorySlug && skill.status === "backup",
+    (skill) =>
+      skill.categorySlug === categorySlug &&
+      skill.tier === "backup" &&
+      isActiveSkill(skill),
+  );
+}
+
+export function getArchivedSkills(categorySlug: string) {
+  return skills.filter(
+    (skill) => skill.categorySlug === categorySlug && skill.status === "archived",
   );
 }

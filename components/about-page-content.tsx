@@ -9,7 +9,7 @@ export function AboutPageContent() {
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-5 py-10 sm:px-6 lg:px-8 lg:py-14">
-      <section className="hero-mesh-bg rounded-[36px] border border-white/70 bg-[rgba(255,255,255,0.86)] p-8 shadow-[0_24px_72px_rgba(13,32,51,0.08)] sm:p-10">
+      <section className="hero-mesh-bg rounded-[36px] border border-white/70 bg-[rgba(255,255,255,0.86)] p-8 shadow-[0_24px_72px_rgba(13,32,51,0.08)] dark:border-white/10 dark:bg-[var(--surface-muted)] sm:p-10">
         <div className="animate-fade-in" style={{ animationDelay: "0ms" }}>
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-accent)]">
             {dictionary.about.eyebrow}
@@ -34,7 +34,7 @@ export function AboutPageContent() {
           </Link>
           <Link
             href="/#categories"
-            className="inline-flex rounded-full border border-[rgba(13,32,51,0.12)] bg-white px-5 py-3 text-sm font-medium text-[var(--color-foreground)] transition hover:border-[rgba(15,111,127,0.22)] hover:text-[var(--color-accent)]"
+            className="inline-flex rounded-full border border-[rgba(13,32,51,0.12)] bg-white px-5 py-3 text-sm font-medium text-[var(--color-foreground)] transition hover:border-[rgba(15,111,127,0.22)] hover:text-[var(--color-accent)] dark:border-white/10 dark:bg-[var(--surface-elevated)]"
           >
             {dictionary.about.viewCategories}
           </Link>
@@ -45,7 +45,7 @@ export function AboutPageContent() {
         {dictionary.about.sections.map((section, index) => (
           <article
             key={section.title}
-            className="animate-fade-in rounded-[30px] border border-white/70 bg-white/80 p-7 shadow-[0_14px_40px_rgba(13,32,51,0.05)]"
+            className="animate-fade-in rounded-[30px] border border-white/70 bg-white/80 p-7 shadow-[0_14px_40px_rgba(13,32,51,0.05)] dark:border-white/10 dark:bg-[var(--surface-muted)]"
             style={{
               animationDelay:
                 index === 0

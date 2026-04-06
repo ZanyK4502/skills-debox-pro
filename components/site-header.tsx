@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+import { ThemeToggle } from "@/components/theme-toggle";
 import { useLanguage } from "@/components/language-provider";
 
 export function SiteHeader() {
@@ -14,7 +15,7 @@ export function SiteHeader() {
   ];
 
   return (
-    <header className="sticky top-0 z-30 border-b border-white/70 bg-[rgba(245,247,251,0.82)] backdrop-blur-xl">
+    <header className="sticky top-0 z-30 border-b border-black/5 bg-[rgba(245,247,251,0.82)] backdrop-blur-xl dark:border-white/8 dark:bg-[rgba(7,17,13,0.82)]">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-5 py-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex flex-col">
           <span className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-accent)]">
@@ -26,22 +27,24 @@ export function SiteHeader() {
         </Link>
 
         <div className="flex flex-wrap items-center justify-end gap-2">
-          <nav className="flex flex-wrap items-center justify-end gap-2 text-sm text-[var(--color-muted)]">
+          <nav className="flex flex-wrap items-center justify-end gap-1 text-sm text-[var(--color-muted)]">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-full px-3 py-2 transition hover:bg-white hover:text-[var(--color-foreground)]"
+                className="rounded-full px-3 py-2 transition hover:bg-white hover:text-[var(--color-foreground)] dark:hover:bg-white/8"
               >
                 {item.label}
               </Link>
             ))}
           </nav>
 
+          <ThemeToggle />
+
           <button
             type="button"
             onClick={toggleLanguage}
-            className="rounded-full border border-black/5 bg-white px-3 py-2 text-sm font-medium text-[var(--color-foreground)] transition hover:border-[var(--color-accent)]/25 hover:text-[var(--color-accent)]"
+            className="rounded-full border border-black/5 bg-white px-3 py-2 text-sm font-medium text-[var(--color-foreground)] transition hover:border-[var(--color-accent)]/25 hover:text-[var(--color-accent)] dark:border-white/10 dark:bg-[rgba(15,23,19,0.88)]"
             aria-label={dictionary.header.toggle}
           >
             {dictionary.header.toggle}
