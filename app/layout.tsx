@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { LanguageProvider } from "@/components/language-provider";
+import { AppProviders } from "@/components/app-providers";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -22,15 +22,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <body className="min-h-full font-sans text-[var(--color-foreground)]">
-        <LanguageProvider>
+        <AppProviders>
           <div className="relative flex min-h-screen flex-col">
             <SiteHeader />
             <main className="flex-1">{children}</main>
             <SiteFooter />
           </div>
-        </LanguageProvider>
+        </AppProviders>
       </body>
     </html>
   );

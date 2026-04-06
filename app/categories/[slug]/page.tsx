@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import { CategoryPageContent } from "@/components/category-page-content";
 import { categories, getCategoryBySlug } from "@/data/categories";
-import { getBackupSkills, getFeaturedSkills } from "@/data/skills";
+import { getArchivedSkills, getBackupSkills, getFeaturedSkills } from "@/data/skills";
 
 type CategoryPageProps = {
   params: Promise<{ slug: string }>;
@@ -109,12 +109,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const featuredSkills = getFeaturedSkills(category.slug);
   const backupSkills = getBackupSkills(category.slug);
+  const archivedSkills = getArchivedSkills(category.slug);
 
   return (
     <CategoryPageContent
       category={category}
       featuredSkills={featuredSkills}
       backupSkills={backupSkills}
+      archivedSkills={archivedSkills}
     />
   );
 }

@@ -16,7 +16,7 @@ export default function Home() {
           <span className="inline-flex rounded-full border border-black/5 bg-white/80 px-4 py-2 text-sm font-semibold text-[var(--color-accent)] shadow-sm">
             {dictionary.home.badge}
           </span>
-          <h1 className="mt-8 max-w-5xl text-5xl font-semibold tracking-tight text-[#111111] lg:text-6xl">
+          <h1 className="mt-8 max-w-5xl text-5xl font-semibold leading-tight tracking-tight text-[#111111] dark:text-white lg:text-6xl">
             {dictionary.home.title}
           </h1>
           <p className="mt-6 max-w-3xl text-base leading-8 text-[var(--color-muted)] sm:text-lg">
@@ -32,7 +32,7 @@ export default function Home() {
             </Link>
             <Link
               href="/about"
-              className="inline-flex rounded-full border border-black/8 bg-white/80 px-5 py-3 text-sm font-medium text-[var(--color-foreground)] transition hover:border-[var(--color-accent)]/25 hover:text-[var(--color-accent)]"
+              className="inline-flex rounded-full border border-black/8 bg-white/80 px-5 py-3 text-sm font-medium text-[var(--color-foreground)] transition hover:border-[var(--color-accent)]/25 hover:text-[var(--color-accent)] dark:border-white/10 dark:bg-[var(--surface-elevated)]"
             >
               {dictionary.home.secondaryCta}
             </Link>
@@ -63,7 +63,7 @@ export default function Home() {
       </section>
 
       <section className="grid gap-6 lg:grid-cols-3">
-        <article className="rounded-2xl border border-black/[0.04] bg-white p-7 shadow-sm">
+        <article className="rounded-2xl border border-black/[0.04] bg-white p-7 shadow-sm dark:border-white/10 dark:bg-[var(--surface-elevated)]">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-accent)]">
             {dictionary.home.methodologyEyebrow}
           </p>
@@ -75,7 +75,7 @@ export default function Home() {
           </p>
         </article>
 
-        <article className="rounded-2xl border border-black/[0.04] bg-white p-7 shadow-sm">
+        <article className="rounded-2xl border border-black/[0.04] bg-white p-7 shadow-sm dark:border-white/10 dark:bg-[var(--surface-elevated)]">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-accent)]">
             {dictionary.home.logicEyebrow}
           </p>
@@ -87,7 +87,7 @@ export default function Home() {
           </p>
         </article>
 
-        <article className="rounded-2xl border border-black/[0.04] bg-white p-7 shadow-sm">
+        <article className="rounded-2xl border border-black/[0.04] bg-white p-7 shadow-sm dark:border-white/10 dark:bg-[var(--surface-elevated)]">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-accent)]">
             {dictionary.home.boundaryEyebrow}
           </p>

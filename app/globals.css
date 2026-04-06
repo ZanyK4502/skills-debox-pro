@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #f8faf8;
@@ -6,6 +7,22 @@
   --muted: #5b6979;
   --accent: #00c26e;
   --surface: #ffffff;
+  --surface-muted: rgba(255, 255, 255, 0.86);
+  --surface-elevated: rgba(255, 255, 255, 0.92);
+  --border-subtle: rgba(16, 32, 51, 0.08);
+  --overlay: rgba(9, 14, 12, 0.56);
+}
+
+.dark {
+  --background: #07110d;
+  --foreground: #edf7f0;
+  --muted: #8ba099;
+  --accent: #00c26e;
+  --surface: #0d1713;
+  --surface-muted: rgba(13, 23, 19, 0.9);
+  --surface-elevated: rgba(17, 29, 24, 0.96);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --overlay: rgba(4, 8, 7, 0.72);
 }
 
 @theme inline {
@@ -29,6 +46,9 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 @keyframes mesh-movement {
@@ -92,4 +112,8 @@ a {
 ::selection {
   background: rgba(0, 194, 110, 0.18);
   color: var(--foreground);
+}
+
+[data-color-mode="dark"] {
+  color-scheme: dark;
 }
