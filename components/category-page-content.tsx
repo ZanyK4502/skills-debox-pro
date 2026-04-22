@@ -11,13 +11,13 @@ import { SubmitSkillModal } from "@/components/submit-skill-modal";
 import { useLanguage } from "@/components/language-provider";
 import type { Category } from "@/data/categories";
 import type { Skill } from "@/data/skills";
-import { getCategoryDisplayStatus } from "@/lib/category-status";
 
 interface CategoryPageContentProps {
   category: Category;
   featuredSkills: Skill[];
   backupSkills: Skill[];
   archivedSkills: Skill[];
+  displayStatus: "ready" | "soon";
 }
 
 export function CategoryPageContent({
@@ -25,6 +25,7 @@ export function CategoryPageContent({
   featuredSkills,
   backupSkills,
   archivedSkills,
+  displayStatus,
 }: CategoryPageContentProps) {
   const { dictionary, getCategoryCopy, language } = useLanguage();
   const { status } = useSession();
@@ -35,7 +36,6 @@ export function CategoryPageContent({
     name: category.name,
     description: category.description,
   });
-  const computedStatus = getCategoryDisplayStatus(category.slug);
   const hasActiveSkills = featuredSkills.length > 0 || backupSkills.length > 0;
   const submitCopy = useMemo(
     () =>
@@ -110,12 +110,12 @@ export function CategoryPageContent({
           <div className="flex flex-col items-start gap-3 sm:items-end">
             <span
               className={`rounded-full px-4 py-2 text-sm font-semibold ${
-                computedStatus === "ready"
+                displayStatus === "ready"
                   ? "bg-[rgba(15,111,127,0.12)] text-[var(--color-accent)]"
                   : "bg-[rgba(148,163,184,0.14)] text-[var(--color-muted)]"
               }`}
             >
-              {computedStatus === "ready"
+              {displayStatus === "ready"
                 ? dictionary.categoryPage.readyStatus
                 : dictionary.categoryPage.soonStatus}
             </span>
