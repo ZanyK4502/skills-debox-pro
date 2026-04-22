@@ -1,0 +1,20 @@
+{
+  "name": "Office",
+  "categorySlug": "productivity-automation",
+  "tier": "backup",
+  "status": "active",
+  "tags": [
+    "Excel 公式",
+    "Word 文档",
+    "PPT 技巧",
+    "Google Workspace",
+    "办公参考"
+  ],
+  "summary": "提供 Excel/Sheets、Word/Docs、PowerPoint/Slides 和基础 office admin 的高频用法、排错和操作指引。",
+  "useCases": "表格公式求助；文档格式调整；PPT 基础规范；常见办公软件问题快速找思路。",
+  "audience": "学生、行政、运营、初级职场人、知识工作者。",
+  "reason": "不是很强的自动化型 skill ，但却是一个可以解决高频办公问题的入口。",
+  "url": "https://clawhub.ai/ivangdavila/office",
+  "publishedAt": "2026.4.22",
+  "contributor": "zanyk4502"
+}
