@@ -1,0 +1,20 @@
+{
+  "name": "Gmail",
+  "categorySlug": "productivity-automation",
+  "tier": "backup",
+  "status": "active",
+  "tags": [
+    "邮件管理",
+    "Gmail 集成",
+    "草稿标签",
+    "线程操作",
+    "标签和草稿管理"
+  ],
+  "summary": "通过 managed OAuth 读写 Gmail，支持邮件、线程、标签和草稿管理。",
+  "useCases": "批量查邮件；整理标签；生成邮件草稿；做项目邮箱协作；把邮件变成结构化工作流。",
+  "audience": "邮件重度用户、运营、客服、远程团队、项目协同人员。",
+  "reason": "它是“办公集成”这个方向里非常典型的一个 skill，实用性强，但因为依赖 MATON_API_KEY 和托管 OAuth，需要用户自行判断风险去使用。",
+  "url": "https://clawhub.ai/byungkyu/gmail",
+  "publishedAt": "2026.4.22",
+  "contributor": "zanyk4502"
+}
