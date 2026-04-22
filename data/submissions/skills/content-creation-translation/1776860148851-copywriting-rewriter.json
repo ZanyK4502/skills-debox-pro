@@ -1,0 +1,20 @@
+{
+  "name": "Copywriting Rewriter",
+  "categorySlug": "content-creation-translation",
+  "tier": "backup",
+  "status": "active",
+  "tags": [
+    "商业文案",
+    "去黑话",
+    "网站文案",
+    "CTA 优化",
+    "品牌表达"
+  ],
+  "summary": "把技术黑话重、推销感强、用户不易理解的初稿，改写成更克制、清晰、面向用户的产品文案、官网文案和按钮文案。",
+  "useCases": "官网首屏文案优化；产品介绍页改写；CTA 按钮文案打磨；把“工程师语言”改成“用户语言”。",
+  "audience": "产品运营、品牌运营、独立开发者、项目官网维护者、营销内容人员。",
+  "reason": "它和 Content Rewriter 不同，核心不是多平台分发，而是“把表达改得更像成熟产品”。是该分类里的商业表达分支。",
+  "url": "https://clawhub.ai/brucey0017-cloud/copywriting-rewriter",
+  "publishedAt": "2026.4.22",
+  "contributor": "zanyk4502"
+}
