@@ -1,0 +1,20 @@
+{
+  "name": "Quick Reminders",
+  "categorySlug": "productivity-automation",
+  "tier": "backup",
+  "status": "active",
+  "tags": [
+    "快速提醒",
+    "一次性提醒",
+    "轻量自动化",
+    "短时任务",
+    "免复杂配置"
+  ],
+  "summary": "做 48 小时内的 one-shot reminders，用很丝滑的方式把一条消息延时发出来，适合短周期提醒。",
+  "useCases": "1 小时后提醒发公告；今晚提醒跟进候选人；下午提醒复盘数据；睡前提醒处理待办。",
+  "audience": "普通用户、运营、自由职业者、事务密集型用户。",
+  "reason": "它比 calendar/API 类提醒 skill 门槛更低，让使用者明显感受到自动化的便利。",
+  "url": "https://clawhub.ai/lstpsche/quick-reminders",
+  "publishedAt": "2026.4.22",
+  "contributor": "zanyk4502"
+}
