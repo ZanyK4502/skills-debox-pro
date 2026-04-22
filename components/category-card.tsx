@@ -4,17 +4,20 @@ import Link from "next/link";
 
 import { useLanguage } from "@/components/language-provider";
 import type { Category } from "@/data/categories";
-import { getCategoryDisplayStatus } from "@/lib/category-status";
 
 interface CategoryCardProps {
   category: Category;
   index: number;
+  displayStatus: "ready" | "soon";
 }
 
-export function CategoryCard({ category, index }: CategoryCardProps) {
+export function CategoryCard({
+  category,
+  index,
+  displayStatus,
+}: CategoryCardProps) {
   const { dictionary, getCategoryCopy } = useLanguage();
-  const computedStatus = getCategoryDisplayStatus(category.slug);
-  const isReady = computedStatus === "ready";
+  const isReady = displayStatus === "ready";
   const copy = getCategoryCopy(category.slug, {
     name: category.name,
     description: category.description,

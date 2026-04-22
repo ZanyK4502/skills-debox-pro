@@ -3,7 +3,12 @@ import { notFound } from "next/navigation";
 
 import { CategoryPageContent } from "@/components/category-page-content";
 import { categories, getCategoryBySlug } from "@/data/categories";
-import { getArchivedSkills, getBackupSkills, getFeaturedSkills } from "@/data/skills";
+import {
+  getCategoryDisplayStatus,
+  getDisplayArchivedSkills,
+  getDisplayBackupSkills,
+  getDisplayFeaturedSkills,
+} from "@/lib/display-skills";
 
 type CategoryPageProps = {
   params: Promise<{ slug: string }>;
@@ -107,9 +112,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     notFound();
   }
 
-  const featuredSkills = getFeaturedSkills(category.slug);
-  const backupSkills = getBackupSkills(category.slug);
-  const archivedSkills = getArchivedSkills(category.slug);
+  const [featuredSkills, backupSkills, archivedSkills, displayStatus] =
+    await Promise.all([
+      getDisplayFeaturedSkills(category.slug),
+      getDisplayBackupSkills(category.slug),
+      getDisplayArchivedSkills(category.slug),
+      getCategoryDisplayStatus(category.slug),
+    ]);
 
   return (
     <CategoryPageContent
@@ -117,6 +126,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       featuredSkills={featuredSkills}
       backupSkills={backupSkills}
       archivedSkills={archivedSkills}
+      displayStatus={displayStatus}
     />
   );
 }
