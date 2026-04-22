@@ -1,0 +1,20 @@
+{
+  "name": "n8n workflow automation",
+  "categorySlug": "productivity-automation",
+  "tier": "backup",
+  "status": "active",
+  "tags": [
+    "n8n",
+    "工作流设计",
+    "自动化 JSON",
+    "审计日志",
+    "Review Queue"
+  ],
+  "summary": "生成更稳健的 n8n workflow JSON 和 runbook，强调 retries、logging、去重、错误处理和人工 review queue。",
+  "useCases": "周报自动发送；Webhook 任务；带审计的自动化流程；需要人审环节的 no-code 工作流。",
+  "audience": "进阶的运营、自动化爱好者、no-code/ops 用户、开发者。",
+  "reason": "不是特别适合普通用户，更适合喜欢深入研究自动化的进阶用户或开发者。",
+  "url": "https://clawhub.ai/kowl64/n8n-workflow-automation",
+  "publishedAt": "2026.4.22",
+  "contributor": "zanyk4502"
+}
