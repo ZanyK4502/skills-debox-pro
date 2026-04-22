@@ -1,0 +1,20 @@
+{
+  "name": "AI Meeting Notes w/ Action Items + To-Do List Tracker",
+  "categorySlug": "productivity-automation",
+  "tier": "featured",
+  "status": "active",
+  "tags": [
+    "会议纪要",
+    "行动项提取",
+    "Todo 跟踪",
+    "笔记归档",
+    "无需配置"
+  ],
+  "summary": "粘贴的会议记录、转录、邮件线程或杂乱文本，整理成清晰 summary，并提取负责人、截止时间、决策项和后续任务，还能保存到 meeting-notes 和 todo 文件。",
+  "useCases": "周会复盘；客户电话纪要；面试记录整理；把 Slack 或邮件线程转成后续任务。",
+  "audience": "运营、项目经理、创始人、销售、远程协作团队、任何会后需要追任务的人。",
+  "reason": "这是该分类里最直观、最容易马上用起来的 skill，无需外部 API、无需复杂安装，价值高。",
+  "url": "https://clawhub.ai/jeffjhunter/ai-meeting-notes",
+  "publishedAt": "2026.4.22",
+  "contributor": "zanyk4502"
+}
