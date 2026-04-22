@@ -1,0 +1,20 @@
+{
+  "name": "Content Rewriter",
+  "categorySlug": "content-creation-translation",
+  "tier": "featured",
+  "status": "active",
+  "tags": [
+    "多平台改写",
+    "中文内容",
+    "社媒分发",
+    "平台适配",
+    "内容复用"
+  ],
+  "summary": "把同一份原始内容改写成适配不同平台的可发布版本，内置小红书、知乎、公众号、抖音脚本等不同长度、结构和语气规则。",
+  "useCases": "把活动复盘一稿多发；把官网博客改成公众号文章；把长文拆成短视频口播脚本；把一篇内容同时适配多个中文平台。",
+  "audience": "社区运营、内容运营、创作者、个人品牌账号、Web3 项目方。",
+  "reason": "贴近真实工作流，非常适合多平台内容分发的场景。",
+  "url": "https://clawhub.ai/alexandrali1989-cell/content-rewriter",
+  "publishedAt": "2026.4.22",
+  "contributor": "zanyk4502"
+}
