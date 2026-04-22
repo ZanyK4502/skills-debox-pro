@@ -1,0 +1,20 @@
+{
+  "name": "Viral Thread Writer",
+  "categorySlug": "content-creation-translation",
+  "tier": "backup",
+  "status": "active",
+  "tags": [
+    "X 线程",
+    "社媒增长",
+    "Hook 写作",
+    "Thread 结构",
+    "CTA"
+  ],
+  "summary": "把一个想法、文章或长文本改写成 5–10 条结构化的 X/Twitter thread，包含 hook、编号正文和结尾 CTA。",
+  "useCases": "把文章拆成 thread；把研究笔记改成推文串；把项目更新做成更适合社交媒体传播的内容。",
+  "audience": "X 运营、个人品牌作者、社区增长人员、Founder、内容账号主理人。",
+  "reason": "更垂直，和 Debox、X 等社媒语境非常贴合，填补“内容输出到社交平台”这一块的空缺。",
+  "url": "https://clawhub.ai/tetsuakira-vk/viral-thread-writer",
+  "publishedAt": "2026.4.22",
+  "contributor": "zanyk4502"
+}
