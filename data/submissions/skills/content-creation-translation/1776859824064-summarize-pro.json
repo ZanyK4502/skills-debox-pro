@@ -1,0 +1,20 @@
+{
+  "name": "Summarize Pro",
+  "categorySlug": "content-creation-translation",
+  "tier": "backup",
+  "status": "active",
+  "tags": [
+    "摘要生成",
+    "长文压缩",
+    "PDF 摘要",
+    "会议摘要",
+    "模板摘要"
+  ],
+  "summary": "对文章、文档、会议、邮件、对话、YouTube transcript 等长内容生成 TL;DR、要点提炼、行动项、会议摘要等多种格式，还支持模板和历史记录。",
+  "useCases": "先压缩长文再决定要不要细读；把会议记录提炼成要点；整理邮件线程；快速消化研究资料。",
+  "audience": "研究型用户、内容运营、学生、知识工作者、需要高频读长内容的人。",
+  "reason": "这是“内容整理/输入压缩”方向里表现较突出的 skill，覆盖面广，使用数据也明显更强，覆盖“创作”和“翻译”之外的第三条内容工作流。",
+  "url": "https://clawhub.ai/mkpareek0315/summarize-pro",
+  "publishedAt": "2026.4.22",
+  "contributor": "zanyk4502"
+}
