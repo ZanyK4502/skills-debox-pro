@@ -1,0 +1,20 @@
+{
+  "name": "Translate",
+  "categorySlug": "content-creation-translation",
+  "tier": "backup",
+  "status": "active",
+  "tags": [
+    "通用翻译",
+    "格式保留",
+    "多语言",
+    "本地化语气",
+    "文档翻译"
+  ],
+  "summary": "准确翻译文本内容，并尽量保留原格式、占位符、技术术语和语气，还会处理 locale、复数和表达习惯差异。",
+  "useCases": "中英双语公告；活动说明翻译；README 或产品文档翻译；面向海外用户的内容本地化。",
+  "audience": "社区运营、出海团队、开发者、文档作者、双语内容人员。",
+  "reason": "比只做单一语种互译的 skill 更通用，成熟度和采用度也更高，适合作为“翻译入口型 skill”",
+  "url": "https://clawhub.ai/ivangdavila/translate",
+  "publishedAt": "2026.4.22",
+  "contributor": "zanyk4502"
+}
