@@ -24,6 +24,10 @@ type ImageManifestItem = {
   fileName: string;
 };
 
+const EXTERNAL_IMAGE_DOWNLOAD_ERROR =
+  "External image download failed. Please upload the image file directly or paste a screenshot.";
+const EXTERNAL_IMAGE_FETCH_TIMEOUT_MS = 10_000;
+
 function formatPublishedDate(timestamp: number) {
   const date = new Date(timestamp);
   const year = date.getFullYear();
@@ -49,6 +53,99 @@ function getFallbackExtension(fileName: string, mimeType: string) {
   };
 
   return fallbackMap[mimeType] ?? ".png";
+}
+
+function getImageSourcesFromHtml(html: string) {
+  const sources = new Set<string>();
+  const quotedSourcePattern = /<img\b[^>]*\bsrc=(["'])(.*?)\1/gi;
+  const unquotedSourcePattern = /<img\b[^>]*\bsrc=([^\s>]+)/gi;
+
+  for (const match of html.matchAll(quotedSourcePattern)) {
+    const source = match[2]?.trim();
+
+    if (source) {
+      sources.add(source);
+    }
+  }
+
+  for (const match of html.matchAll(unquotedSourcePattern)) {
+    const source = match[1]?.trim();
+
+    if (source) {
+      sources.add(source);
+    }
+  }
+
+  return Array.from(sources);
+}
+
+function isExternalHttpImageSource(source: string) {
+  try {
+    const url = new URL(source);
+
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+function getFileNameFromImageUrl(source: string) {
+  try {
+    const url = new URL(source);
+    const fileName = decodeURIComponent(path.basename(url.pathname));
+
+    return fileName || "external-image";
+  } catch {
+    return "external-image";
+  }
+}
+
+async function downloadExternalImage(source: string) {
+  const abortController = new AbortController();
+  const timeout = setTimeout(
+    () => abortController.abort(),
+    EXTERNAL_IMAGE_FETCH_TIMEOUT_MS,
+  );
+
+  try {
+    const response = await fetch(source, {
+      signal: abortController.signal,
+      headers: {
+        Accept: "image/*",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(EXTERNAL_IMAGE_DOWNLOAD_ERROR);
+    }
+
+    const mimeType = response.headers.get("content-type")?.split(";")[0] ?? "";
+
+    if (!mimeType.startsWith("image/")) {
+      throw new Error(EXTERNAL_IMAGE_DOWNLOAD_ERROR);
+    }
+
+    const contentLength = Number(response.headers.get("content-length") ?? 0);
+
+    if (contentLength > PRACTICE_IMAGE_MAX_SIZE_BYTES) {
+      throw new Error(EXTERNAL_IMAGE_DOWNLOAD_ERROR);
+    }
+
+    const imageBuffer = Buffer.from(await response.arrayBuffer());
+
+    if (imageBuffer.length > PRACTICE_IMAGE_MAX_SIZE_BYTES) {
+      throw new Error(EXTERNAL_IMAGE_DOWNLOAD_ERROR);
+    }
+
+    return {
+      imageBuffer,
+      mimeType,
+    };
+  } catch {
+    throw new Error(EXTERNAL_IMAGE_DOWNLOAD_ERROR);
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 export async function POST(request: Request) {
@@ -110,31 +207,7 @@ export async function POST(request: Request) {
     const octokit = await getGitHubAppInstallationOctokit();
     const timestamp = Date.now();
     const publishedAt = formatPublishedDate(timestamp);
-
-    // 3. Read the latest commit from main so the contribution branch starts from the current head.
-    const latestRef = await octokit.git.getRef({
-      owner,
-      repo,
-      ref: `heads/${branch}`,
-    });
-
-    const latestCommitSha = latestRef.data.object.sha;
     const branchName = `practice-${slug}-${timestamp}`;
-
-    // 4. Create an isolated branch for this contribution.
-    await octokit.git.createRef({
-      owner,
-      repo,
-      ref: `refs/heads/${branchName}`,
-      sha: latestCommitSha,
-    });
-
-    const latestCommit = await octokit.git.getCommit({
-      owner,
-      repo,
-      commit_sha: latestCommitSha,
-    });
-
     const practiceFilePath = getPracticeFilePath({
       slug,
       contributor: contributorUsername,
@@ -149,8 +222,8 @@ export async function POST(request: Request) {
 
     let htmlWithRepositoryImages = htmlContent;
 
-    // 5. Build Git tree entries for any pasted or dropped images.
-    const imageTreeEntries = await Promise.all(
+    // 3. Build Git tree entries for any pasted, dropped, or externally linked images.
+    const uploadedImageTreeEntries = await Promise.all(
       imageManifest.map(async (image, index) => {
         const uploadedFile = formData.get(`image:${image.id}`);
 
@@ -183,17 +256,63 @@ export async function POST(request: Request) {
           relativeMarkdownPath,
         );
 
+        const imageBlob = await octokit.git.createBlob({
+          owner,
+          repo,
+          content: imageBuffer.toString("base64"),
+          encoding: "base64",
+        });
+
         return {
           path: repositoryAssetPath,
           mode: "100644" as const,
           type: "blob" as const,
-          content: imageBuffer.toString("base64"),
-          encoding: "base64" as const,
+          sha: imageBlob.data.sha,
         };
       }),
     );
 
-    // 6. Convert the rich text HTML into Markdown only after every temporary image URL
+    const externalImageSources = getImageSourcesFromHtml(htmlWithRepositoryImages).filter(
+      isExternalHttpImageSource,
+    );
+
+    const externalImageTreeEntries = await Promise.all(
+      externalImageSources.map(async (source, index) => {
+        const { imageBuffer, mimeType } = await downloadExternalImage(source);
+        const sanitizedName = sanitizeAssetFilename(getFileNameFromImageUrl(source));
+        const extension = getFallbackExtension(sanitizedName, mimeType);
+        const baseName = sanitizedName.replace(/\.[^.]+$/, "") || "external-image";
+        const imageNumber = imageManifest.length + index + 1;
+        const assetFileName = `${String(imageNumber).padStart(2, "0")}-${baseName}${extension}`;
+        const relativeMarkdownPath = `./assets/${contributorUsername}-${timestamp}/${assetFileName}`;
+        const repositoryAssetPath = `${assetDirectoryPath}/${assetFileName}`;
+
+        htmlWithRepositoryImages = htmlWithRepositoryImages
+          .split(source)
+          .join(relativeMarkdownPath);
+
+        const imageBlob = await octokit.git.createBlob({
+          owner,
+          repo,
+          content: imageBuffer.toString("base64"),
+          encoding: "base64",
+        });
+
+        return {
+          path: repositoryAssetPath,
+          mode: "100644" as const,
+          type: "blob" as const,
+          sha: imageBlob.data.sha,
+        };
+      }),
+    );
+
+    const imageTreeEntries = [
+      ...uploadedImageTreeEntries,
+      ...externalImageTreeEntries,
+    ];
+
+    // 4. Convert the rich text HTML into Markdown only after every image URL
     //    has been replaced with the final repository-relative asset path.
     const markdownBody = htmlToMarkdown(htmlWithRepositoryImages);
 
@@ -212,6 +331,29 @@ export async function POST(request: Request) {
       "",
       markdownBody,
     ].join("\n");
+
+    // 5. Read the latest commit from main so the contribution branch starts from the current head.
+    const latestRef = await octokit.git.getRef({
+      owner,
+      repo,
+      ref: `heads/${branch}`,
+    });
+
+    const latestCommitSha = latestRef.data.object.sha;
+
+    // 6. Create an isolated branch for this contribution.
+    await octokit.git.createRef({
+      owner,
+      repo,
+      ref: `refs/heads/${branchName}`,
+      sha: latestCommitSha,
+    });
+
+    const latestCommit = await octokit.git.getCommit({
+      owner,
+      repo,
+      commit_sha: latestCommitSha,
+    });
 
     // 7. Create a new tree containing the Markdown document plus any referenced image assets.
     const nextTree = await octokit.git.createTree({
