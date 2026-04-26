@@ -1,7 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type ComponentPropsWithoutRef,
+} from "react";
 import ReactMarkdown from "react-markdown";
+import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 
 import { useLanguage } from "@/components/language-provider";
@@ -21,6 +27,174 @@ interface PracticeViewerModalProps {
   skillName: string;
   onClose: () => void;
 }
+
+const markdownComponents = {
+  h1({ children, ...props }: ComponentPropsWithoutRef<"h1">) {
+    return (
+      <h1
+        className="mb-5 mt-8 text-3xl font-semibold leading-tight text-[var(--color-foreground)] first:mt-0"
+        {...props}
+      >
+        {children}
+      </h1>
+    );
+  },
+  h2({ children, ...props }: ComponentPropsWithoutRef<"h2">) {
+    return (
+      <h2
+        className="mb-4 mt-8 text-2xl font-semibold leading-tight text-[var(--color-foreground)] first:mt-0"
+        {...props}
+      >
+        {children}
+      </h2>
+    );
+  },
+  h3({ children, ...props }: ComponentPropsWithoutRef<"h3">) {
+    return (
+      <h3
+        className="mb-3 mt-6 text-xl font-semibold leading-snug text-[var(--color-foreground)] first:mt-0"
+        {...props}
+      >
+        {children}
+      </h3>
+    );
+  },
+  p({ children, ...props }: ComponentPropsWithoutRef<"p">) {
+    return (
+      <p
+        className="my-4 whitespace-pre-wrap text-[15px] leading-8 text-[var(--color-foreground)]"
+        {...props}
+      >
+        {children}
+      </p>
+    );
+  },
+  a({ children, ...props }: ComponentPropsWithoutRef<"a">) {
+    return (
+      <a
+        className="font-medium text-[var(--color-accent)] underline underline-offset-4 transition hover:text-[#00a85f]"
+        target="_blank"
+        rel="noreferrer"
+        {...props}
+      >
+        {children}
+      </a>
+    );
+  },
+  blockquote({ children, ...props }: ComponentPropsWithoutRef<"blockquote">) {
+    return (
+      <blockquote
+        className="my-5 border-l-4 border-[var(--color-accent)]/45 bg-[var(--color-accent)]/8 px-4 py-3 text-[var(--color-foreground)]"
+        {...props}
+      >
+        {children}
+      </blockquote>
+    );
+  },
+  ul({ children, ...props }: ComponentPropsWithoutRef<"ul">) {
+    return (
+      <ul
+        className="my-4 list-disc space-y-2 pl-6 text-[15px] leading-8 text-[var(--color-foreground)]"
+        {...props}
+      >
+        {children}
+      </ul>
+    );
+  },
+  ol({ children, ...props }: ComponentPropsWithoutRef<"ol">) {
+    return (
+      <ol
+        className="my-4 list-decimal space-y-2 pl-6 text-[15px] leading-8 text-[var(--color-foreground)]"
+        {...props}
+      >
+        {children}
+      </ol>
+    );
+  },
+  li({ children, ...props }: ComponentPropsWithoutRef<"li">) {
+    return (
+      <li className="pl-1 marker:text-[var(--color-muted)]" {...props}>
+        {children}
+      </li>
+    );
+  },
+  pre({ children, ...props }: ComponentPropsWithoutRef<"pre">) {
+    return (
+      <pre
+        className="my-5 overflow-x-auto rounded-xl border border-white/10 bg-neutral-950 px-4 py-4 text-sm leading-7 text-white shadow-inner"
+        {...props}
+      >
+        {children}
+      </pre>
+    );
+  },
+  code({
+    children,
+    className,
+    ...props
+  }: ComponentPropsWithoutRef<"code">) {
+    const isCodeBlock =
+      Boolean(className?.startsWith("language-")) ||
+      String(children).includes("\n");
+
+    if (isCodeBlock) {
+      return (
+        <code className={className} {...props}>
+          {children}
+        </code>
+      );
+    }
+
+    return (
+      <code
+        className="rounded-md bg-black/5 px-1.5 py-0.5 font-mono text-[0.92em] text-[var(--color-foreground)] dark:bg-white/10"
+        {...props}
+      >
+        {children}
+      </code>
+    );
+  },
+  img({ alt, ...props }: ComponentPropsWithoutRef<"img">) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        alt={alt ?? ""}
+        className="my-6 max-h-[720px] w-auto max-w-full rounded-xl border border-black/5 object-contain dark:border-white/10"
+        loading="lazy"
+        {...props}
+      />
+    );
+  },
+  table({ children, ...props }: ComponentPropsWithoutRef<"table">) {
+    return (
+      <div className="my-5 overflow-x-auto">
+        <table
+          className="w-full border-collapse text-left text-sm text-[var(--color-foreground)]"
+          {...props}
+        >
+          {children}
+        </table>
+      </div>
+    );
+  },
+  th({ children, ...props }: ComponentPropsWithoutRef<"th">) {
+    return (
+      <th
+        className="border-b border-black/10 px-3 py-2 font-semibold dark:border-white/10"
+        {...props}
+      >
+        {children}
+      </th>
+    );
+  },
+  td({ children, ...props }: ComponentPropsWithoutRef<"td">) {
+    return (
+      <td className="border-b border-black/5 px-3 py-2 dark:border-white/10" {...props}>
+        {children}
+      </td>
+    );
+  },
+};
 
 export function PracticeViewerModal({
   open,
@@ -201,8 +375,11 @@ export function PracticeViewerModal({
                     </div>
                   </div>
 
-                  <article className="prose prose-slate max-w-none dark:prose-invert">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  <article className="max-w-none">
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm, remarkBreaks]}
+                      components={markdownComponents}
+                    >
                       {activePractice.content}
                     </ReactMarkdown>
                   </article>

@@ -10,7 +10,9 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import {
   Bold,
   Code,
+  Heading1,
   Heading2,
+  Heading3,
   ImagePlus,
   Italic,
   Link2,
@@ -23,6 +25,7 @@ import {
   useMemo,
   useRef,
   type ChangeEvent,
+  type MouseEvent,
   type ReactNode,
 } from "react";
 
@@ -54,10 +57,23 @@ function ToolbarButton({
   title: string;
   children: ReactNode;
 }) {
+  const runAction = (event?: MouseEvent<HTMLButtonElement>) => {
+    event?.preventDefault();
+    onClick();
+  };
+
   return (
     <button
       type="button"
-      onClick={onClick}
+      onMouseDown={runAction}
+      onClick={(event) => {
+        if (event.detail === 0) {
+          runAction(event);
+          return;
+        }
+
+        event.preventDefault();
+      }}
       className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border transition ${
         active
           ? "border-[var(--color-accent)]/25 bg-[var(--color-accent)]/12 text-[var(--color-accent)]"
@@ -121,7 +137,7 @@ export function PracticeRichEditor({
     extensions: [
       StarterKit.configure({
         heading: {
-          levels: [2, 3],
+          levels: [1, 2, 3],
         },
       }),
       Image,
@@ -281,11 +297,25 @@ export function PracticeRichEditor({
     <div className="overflow-hidden rounded-[24px] border border-black/5 bg-white dark:border-white/10 dark:bg-[var(--surface-elevated)]">
       <div className="flex flex-wrap items-center gap-2 border-b border-black/5 px-4 py-3 dark:border-white/10">
         <ToolbarButton
+          onClick={() => editor?.chain().focus().toggleHeading({ level: 1 }).run()}
+          active={editor?.isActive("heading", { level: 1 })}
+          title={`${copy.heading} 1`}
+        >
+          <Heading1 className="h-4 w-4" />
+        </ToolbarButton>
+        <ToolbarButton
           onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()}
           active={editor?.isActive("heading", { level: 2 })}
-          title={copy.heading}
+          title={`${copy.heading} 2`}
         >
           <Heading2 className="h-4 w-4" />
+        </ToolbarButton>
+        <ToolbarButton
+          onClick={() => editor?.chain().focus().toggleHeading({ level: 3 }).run()}
+          active={editor?.isActive("heading", { level: 3 })}
+          title={`${copy.heading} 3`}
+        >
+          <Heading3 className="h-4 w-4" />
         </ToolbarButton>
         <ToolbarButton
           onClick={() => editor?.chain().focus().toggleBold().run()}
