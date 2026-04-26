@@ -46,6 +46,79 @@ interface PracticeRichEditorProps {
   onImageError: (message: string) => void;
 }
 
+const editorContentClassName = [
+  "min-h-[360px]",
+  "[&_.ProseMirror]:min-h-[360px]",
+  "[&_.ProseMirror]:focus:outline-none",
+  "[&_.ProseMirror_p]:my-3",
+  "[&_.ProseMirror_p]:text-[15px]",
+  "[&_.ProseMirror_p]:leading-8",
+  "[&_.ProseMirror_h1]:mb-5",
+  "[&_.ProseMirror_h1]:mt-7",
+  "[&_.ProseMirror_h1]:text-3xl",
+  "[&_.ProseMirror_h1]:font-semibold",
+  "[&_.ProseMirror_h1]:leading-tight",
+  "[&_.ProseMirror_h2]:mb-4",
+  "[&_.ProseMirror_h2]:mt-6",
+  "[&_.ProseMirror_h2]:text-2xl",
+  "[&_.ProseMirror_h2]:font-semibold",
+  "[&_.ProseMirror_h2]:leading-tight",
+  "[&_.ProseMirror_h3]:mb-3",
+  "[&_.ProseMirror_h3]:mt-5",
+  "[&_.ProseMirror_h3]:text-xl",
+  "[&_.ProseMirror_h3]:font-semibold",
+  "[&_.ProseMirror_h3]:leading-snug",
+  "[&_.ProseMirror_strong]:font-semibold",
+  "[&_.ProseMirror_em]:italic",
+  "[&_.ProseMirror_a]:font-medium",
+  "[&_.ProseMirror_a]:text-[var(--color-accent)]",
+  "[&_.ProseMirror_a]:underline",
+  "[&_.ProseMirror_a]:underline-offset-4",
+  "[&_.ProseMirror_blockquote]:my-4",
+  "[&_.ProseMirror_blockquote]:border-l-4",
+  "[&_.ProseMirror_blockquote]:border-[var(--color-accent)]/45",
+  "[&_.ProseMirror_blockquote]:bg-[var(--color-accent)]/8",
+  "[&_.ProseMirror_blockquote]:px-4",
+  "[&_.ProseMirror_blockquote]:py-2",
+  "[&_.ProseMirror_ul]:my-4",
+  "[&_.ProseMirror_ul]:list-disc",
+  "[&_.ProseMirror_ul]:space-y-2",
+  "[&_.ProseMirror_ul]:pl-6",
+  "[&_.ProseMirror_ol]:my-4",
+  "[&_.ProseMirror_ol]:list-decimal",
+  "[&_.ProseMirror_ol]:space-y-2",
+  "[&_.ProseMirror_ol]:pl-6",
+  "[&_.ProseMirror_li]:pl-1",
+  "[&_.ProseMirror_li_p]:my-1",
+  "[&_.ProseMirror_code]:rounded-md",
+  "[&_.ProseMirror_code]:bg-black/5",
+  "[&_.ProseMirror_code]:px-1.5",
+  "[&_.ProseMirror_code]:py-0.5",
+  "[&_.ProseMirror_code]:font-mono",
+  "dark:[&_.ProseMirror_code]:bg-white/10",
+  "[&_.ProseMirror_img]:my-4",
+  "[&_.ProseMirror_img]:max-h-[420px]",
+  "[&_.ProseMirror_img]:rounded-xl",
+  "[&_.ProseMirror_img]:border",
+  "[&_.ProseMirror_img]:border-black/5",
+  "[&_.ProseMirror_img]:object-contain",
+  "dark:[&_.ProseMirror_img]:border-white/10",
+  "[&_.ProseMirror_pre]:my-5",
+  "[&_.ProseMirror_pre]:overflow-x-auto",
+  "[&_.ProseMirror_pre]:rounded-xl",
+  "[&_.ProseMirror_pre]:border",
+  "[&_.ProseMirror_pre]:border-white/10",
+  "[&_.ProseMirror_pre]:bg-neutral-950",
+  "[&_.ProseMirror_pre]:px-4",
+  "[&_.ProseMirror_pre]:py-4",
+  "[&_.ProseMirror_pre]:text-sm",
+  "[&_.ProseMirror_pre]:leading-7",
+  "[&_.ProseMirror_pre]:text-white",
+  "[&_.ProseMirror_pre_code]:bg-transparent",
+  "[&_.ProseMirror_pre_code]:p-0",
+  "[&_.ProseMirror_pre_code]:text-white",
+].join(" ");
+
 function ToolbarButton({
   onClick,
   active,
@@ -382,7 +455,7 @@ export function PracticeRichEditor({
 
       <EditorContent
         editor={editor}
-        className="min-h-[360px] [&_.ProseMirror]:min-h-[360px] [&_.ProseMirror]:focus:outline-none [&_.ProseMirror_img]:my-4 [&_.ProseMirror_img]:max-h-[420px] [&_.ProseMirror_img]:rounded-2xl [&_.ProseMirror_img]:border [&_.ProseMirror_img]:border-black/5 [&_.ProseMirror_img]:object-contain [&_.ProseMirror_pre]:overflow-x-auto [&_.ProseMirror_pre]:rounded-2xl [&_.ProseMirror_pre]:bg-neutral-950 [&_.ProseMirror_pre]:p-4 [&_.ProseMirror_pre]:text-white"
+        className={editorContentClassName}
       />
     </div>
   );

@@ -28,6 +28,54 @@ interface PracticeViewerModalProps {
   onClose: () => void;
 }
 
+function normalizePracticeMarkdown(content: string) {
+  let insideFence = false;
+
+  return content
+    .split("\n")
+    .map((line) => {
+      const trimmedLine = line.trim();
+
+      if (trimmedLine.startsWith("```")) {
+        insideFence = !insideFence;
+        return line;
+      }
+
+      if (insideFence || trimmedLine.length === 0) {
+        return line;
+      }
+
+      const orderedListItem = line.match(/^(\s*)(\d+)、\s*(.+)$/);
+
+      if (orderedListItem) {
+        return `${orderedListItem[1]}${orderedListItem[2]}. ${orderedListItem[3]}`;
+      }
+
+      const nestedOrderedListItem = line.match(/^\s*[-*]\s+(\d+)、\s*(.+)$/);
+
+      if (nestedOrderedListItem) {
+        return `${nestedOrderedListItem[1]}. ${nestedOrderedListItem[2]}`;
+      }
+
+      if (
+        trimmedLine.length <= 28 &&
+        !trimmedLine.startsWith("#") &&
+        !trimmedLine.startsWith(">") &&
+        !trimmedLine.startsWith("[") &&
+        !trimmedLine.startsWith("!") &&
+        !trimmedLine.includes("://") &&
+        /^([\p{Script=Han}A-Za-z0-9\s/()（）《》【】_-]+)\s*[:：]$/u.test(
+          trimmedLine,
+        )
+      ) {
+        return `### ${trimmedLine.replace(/\s*[:：]$/, "")}`;
+      }
+
+      return line;
+    })
+    .join("\n");
+}
+
 const markdownComponents = {
   h1({ children, ...props }: ComponentPropsWithoutRef<"h1">) {
     return (
@@ -290,6 +338,9 @@ export function PracticeViewerModal({
 
   const activePractice =
     practices.find((practice) => practice.id === activePracticeId) ?? practices[0];
+  const normalizedPracticeContent = activePractice
+    ? normalizePracticeMarkdown(activePractice.content)
+    : "";
 
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center bg-[var(--overlay)] px-4 py-8">
@@ -380,7 +431,7 @@ export function PracticeViewerModal({
                       remarkPlugins={[remarkGfm, remarkBreaks]}
                       components={markdownComponents}
                     >
-                      {activePractice.content}
+                      {normalizedPracticeContent}
                     </ReactMarkdown>
                   </article>
                 </>
