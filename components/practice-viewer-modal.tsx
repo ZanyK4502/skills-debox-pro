@@ -419,10 +419,6 @@ export function PracticeViewerModal({
                         {activePractice.publishedAt ??
                           new Date(activePractice.updatedAt).toLocaleDateString()}
                       </p>
-                      <p>
-                        {copy.latest}:{" "}
-                        {new Date(activePractice.updatedAt).toLocaleString()}
-                      </p>
                     </div>
                   </div>
 
