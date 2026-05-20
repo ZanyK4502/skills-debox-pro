@@ -132,8 +132,18 @@ export function SubmitSkillModal({
     [language],
   );
 
+  const toastElement = toast ? (
+    <ToastMessage
+      kind={toast.kind}
+      message={toast.message}
+      linkUrl={toast.linkUrl}
+      linkLabel={toast.linkLabel}
+      onClose={() => setToast(null)}
+    />
+  ) : null;
+
   if (!open) {
-    return null;
+    return toastElement;
   }
 
   const updateField = <K extends keyof FormState>(key: K, value: FormState[K]) => {
@@ -246,7 +256,6 @@ export function SubmitSkillModal({
         linkLabel: copy.successLink,
       });
 
-      window.open(payload.prUrl, "_blank", "noopener,noreferrer");
       resetForm();
       onClose();
     } catch (error) {
@@ -474,15 +483,7 @@ export function SubmitSkillModal({
         </div>
       </div>
 
-      {toast ? (
-        <ToastMessage
-          kind={toast.kind}
-          message={toast.message}
-          linkUrl={toast.linkUrl}
-          linkLabel={toast.linkLabel}
-          onClose={() => setToast(null)}
-        />
-      ) : null}
+      {toastElement}
     </>
   );
 }

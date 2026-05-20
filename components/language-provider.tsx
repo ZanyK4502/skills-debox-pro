@@ -466,11 +466,6 @@ const dictionaries: Record<Language, Dictionary> = {
             "We prioritize skills that are easy to understand, clearly scoped, and representative of a meaningful workflow. Each recommendation is presented with practical context so you can judge fit quickly.",
         },
         {
-          title: "Why only three categories are live now",
-          content:
-            "The first release focuses on Research, Security, and Market Intelligence because they map to some of the most urgent everyday needs. The goal is to make these categories genuinely useful before expanding further.",
-        },
-        {
           title: "How this guide will grow",
           content:
             "This is a living guide, not a static list. As the Clawhub ecosystem evolves, we will continue adding strong new skills and gradually complete the remaining categories.",
@@ -597,17 +592,17 @@ const dictionaries: Record<Language, Dictionary> = {
       categoryTitle: "探索工具场景",
       categoryDescription: "按实际工作流划分，覆盖日常工作全流程。",
       methodologyEyebrow: "方法说明",
-      methodologyTitle: "核心理念：做减法，降门槛",
+      methodologyTitle: "先把选择变少",
       methodologyDescription:
-        "重点不是盲目追求数量，而是提供一个高信噪比的精选入口。我们先把各个方向最有代表性的 skill 挑出来，帮你快速定位需要的工具。",
+        "这个网站不追求把所有 Skill 都摆出来。我们先挑出更值得试的入口，让你不用在长列表里来回比较。",
       logicEyebrow: "筛选逻辑",
-      logicTitle: "筛选标准：场景导向，即开即用",
+      logicTitle: "看场景也看上手感",
       logicDescription:
-        "优先筛选边界清晰、能代表特定工作流方向的工具。剥离冗长的技术背景，直接提供适用人群与典型场景，一秒判断是否契合需求。",
+        "一个 Skill 适合谁，用在什么任务里，能不能快速跑通，这些比复杂介绍更重要。页面会尽量把判断所需的信息放在前面。",
       boundaryEyebrow: "当前边界",
-      boundaryTitle: "宁缺毋滥，持续更新",
+      boundaryTitle: "慢一点补齐",
       boundaryDescription:
-        "当前版本优先覆盖需求最明确的核心场景。为了保证推荐质量，我们会花更多时间在工具的测试与验证上，并逐步开放更多分类。",
+        "当前先整理需求更明确的场景。新的分类和推荐会陆续补上，节奏会跟着实际测试结果走。",
     },
     about: {
       eyebrow: "About / Methodology",
@@ -618,29 +613,24 @@ const dictionaries: Record<Language, Dictionary> = {
       viewCategories: "查看分类结构",
       sections: [
         {
-          title: "初衷：解决“不知从何试起”的痛点",
+          title: "先帮你选出起点",
           content:
-            "Clawhub 上的 skills 非常丰富，但普通用户最常见的困扰是“太多了，不知道先用哪个”。这个网站的目标是作为你的“前置过滤器”，把真正值得一试的工具提炼出来，降低探索门槛。",
+            "Clawhub 上的 Skills 很多，真正费时间的是判断先试哪一个。这个网站把更值得先看的工具放到前面，让你从当前任务出发，更快找到合适的入口。",
         },
         {
-          title: "分类：以“任务目标”为原点",
+          title: "按任务目标划分分类",
           content:
-            "我们完全按照用户的“任务目标”来划分。我们关心的是一个 skill 能帮你解决什么实际问题、适合什么工作场景，而不是它背后调用了什么接口。一切以“好用、能用”为先。",
+            "分类从用户要完成的事情出发，关注一个 Skill 能解决什么问题，适合放进哪类工作场景。接口和实现细节会退到后面，优先看上手难度、稳定性和实际价值。",
         },
         {
-          title: "skill 的筛选标准是什么",
+          title: "我们怎么筛选 Skill",
           content:
-            "第一版优先选择用途清晰、边界明确、适合快速理解的 skill。除了功能本身，我们还会看它是否能代表一个方向、是否适合作为入口、是否有明确使用场景，以及是否值得推荐给非重度技术用户。",
+            "优先选择用途清楚、边界明确、容易理解的 Skill。我们会看它能不能代表一个方向，能不能作为入门选择，场景是否具体，对普通用户是否值得一试。",
         },
         {
-          title: "演进：从最高频的场景切入",
+          title: "后续持续更新",
           content:
-            "首批上线的“信息检索、安全风控、市场信息”是大家日常需求最迫切的三个方向。我们希望先把这部分内容做精做透，确保每一条推荐都有极高的参考价值。",
-        },
-        {
-          title: "后续会持续更新",
-          content:
-            "精选导航不是一个静态列表，而是一个会随着 Clawhub 生态共同生长的活文档。我们会持续发掘新的优质 skill，并逐步补齐余下的分类，欢迎保持关注。",
+            "这个导航会跟着 Clawhub 生态一起更新。新的优质 Skill 会继续加入，暂未补齐的分类也会逐步完善。",
         },
       ],
     },
@@ -654,11 +644,11 @@ const dictionaries: Record<Language, Dictionary> = {
       soonDescription:
         "该分类的优质工具正在紧张测试与严格筛选中。我们希望为你呈现最有效率的生产力组合，敬请期待后续更新。",
       featuredEyebrow: "主推荐",
-      featuredTitle: "适合先看的代表性 skill",
+      featuredTitle: "代表性 Skill",
       featuredDescription:
         "主推荐优先覆盖这个分类里最容易理解、最值得先试、最能代表方向的 skill，适合第一次建立分类印象时直接查看。",
       backupEyebrow: "更多推荐",
-      backupTitle: "用来补充视角与场景覆盖",
+      backupTitle: "补充视角与场景覆盖",
       backupDescription:
         "这些 skill 用来扩展同一分类下的不同使用方向，帮助你根据具体任务继续细分选择，而不是只停留在一个代表性工具上。",
     },

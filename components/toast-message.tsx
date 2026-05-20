@@ -16,7 +16,11 @@ export function ToastMessage({
   linkLabel,
 }: ToastMessageProps) {
   return (
-    <div className="fixed bottom-4 right-4 z-[80] max-w-sm rounded-2xl border border-black/5 bg-white px-4 py-3 shadow-xl dark:border-white/10 dark:bg-[var(--surface-elevated)]">
+    <div
+      role="status"
+      aria-live="polite"
+      className="fixed right-4 top-4 z-[90] max-w-sm rounded-2xl border border-black/5 bg-white/95 px-4 py-3 shadow-[0_18px_48px_rgba(13,32,51,0.16)] backdrop-blur dark:border-white/10 dark:bg-[var(--surface-elevated)]"
+    >
       <div className="flex items-start gap-3">
         <span
           className={`mt-1 h-2.5 w-2.5 rounded-full ${

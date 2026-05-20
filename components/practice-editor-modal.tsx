@@ -132,8 +132,18 @@ export function PracticeEditorModal({
     });
   };
 
+  const toastElement = toast ? (
+    <ToastMessage
+      kind={toast.kind}
+      message={toast.message}
+      linkUrl={toast.linkUrl}
+      linkLabel={toast.linkLabel}
+      onClose={() => setToast(null)}
+    />
+  ) : null;
+
   if (!open) {
-    return null;
+    return toastElement;
   }
 
   const handleInsertTemplate = () => {
@@ -199,8 +209,6 @@ export function PracticeEditorModal({
         linkUrl: payload.prUrl,
         linkLabel: copy.successLink,
       });
-
-      window.open(payload.prUrl, "_blank", "noopener,noreferrer");
 
       referencedImages.forEach((image) => {
         URL.revokeObjectURL(image.previewUrl);
@@ -307,15 +315,7 @@ export function PracticeEditorModal({
         </div>
       </div>
 
-      {toast ? (
-        <ToastMessage
-          kind={toast.kind}
-          message={toast.message}
-          linkUrl={toast.linkUrl}
-          linkLabel={toast.linkLabel}
-          onClose={() => setToast(null)}
-        />
-      ) : null}
+      {toastElement}
     </>
   );
 }
